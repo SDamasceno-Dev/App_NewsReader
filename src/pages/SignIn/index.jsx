@@ -1,9 +1,26 @@
+// React Imports
 import React from 'react';
 
-import { Container } from './styles';
+// Modules Imports
+import { useNavigation } from '@react-navigation/native';
+
+// Assets import
+import logoImage from '../../assets/logo.png';
+
+// Styles import
+import { Container, Logo, BtnEntrar, BtnEntrarText } from './styles';
 
 const SignIn = () => {
-  return <Container />;
+  const navigation = useNavigation();
+
+  return (
+    <Container>
+      <Logo source={logoImage} />
+      <BtnEntrar onPress={() => navigation.navigate('ListNews')}>
+        <BtnEntrarText>ENTRAR</BtnEntrarText>
+      </BtnEntrar>
+    </Container>
+  );
 };
 
 export default SignIn;
