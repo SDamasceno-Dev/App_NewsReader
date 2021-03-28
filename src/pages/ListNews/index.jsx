@@ -59,9 +59,9 @@ const ListNews = ({ route }) => {
   }, [route]);
 
   useEffect(() => {
-    console.log('action', action);
-    console.log('action newsItem', action.newsItem);
-    console.log('action status', action.status);
+    // console.log('action', action);
+    // console.log('action newsItem', action.newsItem);
+    // console.log('action status', action.status);
   }, [action]);
 
   return (

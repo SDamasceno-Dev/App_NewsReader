@@ -56,6 +56,9 @@ const ReadNews = ({ route }) => {
                 status: 'edit',
               });
             }}
+            // onPress={() => {
+            //   navigation.navigate('AddEditNews');
+            // }}
           >
             <NewsManagementButtonText>EDITAR</NewsManagementButtonText>
           </NewsManagementButton>

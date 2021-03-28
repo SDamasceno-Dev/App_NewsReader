@@ -34,6 +34,8 @@ export const NewsEditAddAuthorFieldContainer = styled.View`
   border-radius: 15px;
   border-color: #ccc;
   border-width: 0.5px;
+  justify-content: center;
+  padding: 0px 10px;
 `;
 
 export const NewsEditAddTitleContainer = styled.View`
@@ -54,6 +56,8 @@ export const NewsEditAddTitleFieldContainer = styled.View`
   border-radius: 15px;
   border-color: #ccc;
   border-width: 0.5px;
+  justify-content: center;
+  padding: 0px 10px;
 `;
 
 export const NewsEditAddTextContainer = styled.View`
@@ -74,6 +78,7 @@ export const NewsEditAddTextFieldContainer = styled.View`
   border-radius: 15px;
   border-color: #ccc;
   border-width: 0.5px;
+  padding: 5px 10px;
 `;
 
 // News Management
