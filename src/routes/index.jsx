@@ -4,15 +4,20 @@ import { Image } from 'react-native';
 
 // REact Navigation Imports
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Pages Imports
 import SignIn from '../pages/SignIn';
 import ListNews from '../pages/ListNews';
+import ReadNews from '../pages/ReadNews';
+import AddEditNews from '../pages/AddEditNews';
 
 // Assets Imports
 import LogoMiniImg from '../assets/NewsReaderMini.png';
 
 const App = createStackNavigator();
+const TabBottomNav = createBottomTabNavigator();
+
 const LogoMini = () => {
   return <Image source={LogoMiniImg} />;
 };
@@ -29,17 +34,41 @@ const AppRoutes = () => {
         component={SignIn}
         options={{ headerShown: false }}
       />
-
       <App.Screen
         name="ListNews"
         component={ListNews}
         options={{
           headerShown: true,
           headerLeft: () => null,
-          headerTitle: props => <LogoMini {...props} />,
+          headerTitle: <LogoMini />,
+        }}
+      />
+      <App.Screen
+        name="ReadNews"
+        component={ReadNews}
+        options={{
+          headerShown: true,
+          headerTitle: <LogoMini />,
+          headerBackTitleVisible: false,
         }}
       />
     </App.Navigator>
+  );
+};
+
+const TabBottomMenu = () => {
+  return (
+    <TabBottomNav.Navigator>
+      <TabBottomNav.Screen
+        name="ListNews"
+        component={ListNews}
+        options={{
+          headerShown: true,
+          headerLeft: () => null,
+          headerTitle: <LogoMini />,
+        }}
+      />
+    </TabBottomNav.Navigator>
   );
 };
 
