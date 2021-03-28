@@ -53,12 +53,9 @@ const ReadNews = ({ route }) => {
             onPress={() => {
               navigation.navigate('AddEditNews', {
                 newsItem,
-                status: 'edit',
+                status: 'editing',
               });
             }}
-            // onPress={() => {
-            //   navigation.navigate('AddEditNews');
-            // }}
           >
             <NewsManagementButtonText>EDITAR</NewsManagementButtonText>
           </NewsManagementButton>
@@ -74,7 +71,7 @@ const ReadNews = ({ route }) => {
                     onPress: () => {
                       navigation.navigate('ListNews', {
                         newsItem,
-                        status: 'delete',
+                        action: 'deleted',
                       });
                     },
                   },

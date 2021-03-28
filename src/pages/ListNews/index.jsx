@@ -17,6 +17,7 @@ import {
 } from './styles';
 
 const ListNews = ({ route }) => {
+  const [newsAction, setNewsAction] = useState('');
   const [news, setNews] = useState([
     {
       id: '123',
@@ -47,22 +48,33 @@ const ListNews = ({ route }) => {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus elementum ex, eu rhoncus metus tempus a. Suspendisse in egestas nibh. Aenean sagittis nulla sit amet leo vestibulum interdum. Morbi et nulla mauris. Aliquam ut suscipit eros, ac elementum ipsum. Nulla leo massa, tristique non hendrerit non, faucibus quis odio.',
     },
   ]);
-  const [action, setAction] = useState({});
+  const [newsItem, setNewsItem] = useState({});
 
   const navigation = useNavigation();
 
   useEffect(() => {
+    console.log(route);
     if (route.params !== undefined) {
-      const { newsItem, status } = route.params;
-      setAction({ newsItem, status });
+      const { action, newsItem: item } = route.params;
+      setNewsAction(action);
+      setNewsItem(item);
     }
   }, [route]);
 
   useEffect(() => {
-    // console.log('action', action);
+    if (newsAction === 'saved') {
+      const arrIndex = news.findIndex(newsEl => newsEl.id === newsItem.id);
+      news[arrIndex] = newsItem;
+      setNews(news);
+      setNewsAction('');
+    }
+  }, [newsAction]);
+
+  useEffect(() => {
+    // console.log('news', news);
     // console.log('action newsItem', action.newsItem);
     // console.log('action status', action.status);
-  }, [action]);
+  }, [news]);
 
   return (
     <SafeAreaView>

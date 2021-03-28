@@ -1,6 +1,6 @@
 //  React Native imports
 import React, { useEffect, useState } from 'react';
-import { TextInput } from 'react-native';
+import { TextInput, Alert } from 'react-native';
 
 // Modules Imports
 import { useNavigation } from '@react-navigation/native';
@@ -25,7 +25,7 @@ import {
 } from './styles';
 
 const NewsAddEdit = ({ route }) => {
-  const [newsAction, setNewsAction] = useState('');
+  const [action, setAction] = useState('');
   const [news, setNews] = useState({
     author: '',
     date: '',
@@ -40,16 +40,16 @@ const NewsAddEdit = ({ route }) => {
     if (route.params !== undefined) {
       const { newsItem, status } = route.params;
       setNews(newsItem);
-      setNewsAction({ status });
+      setAction({ status });
     }
   }, [route]);
 
   useEffect(() => {
-    console.log('news', news);
-    // console.log('news action', newsAction);
-    // console.log('news newsItem', news.newsItem);
-    // console.log('news status', news.status);
-  }, [news]);
+    if (action === 'saved') {
+      Alert.alert('Sucesso', 'A notícia foi alterada!');
+      navigation.navigate('ListNews', { newsItem: news, action });
+    }
+  }, [action]);
 
   return (
     <Container>
@@ -91,14 +91,12 @@ const NewsAddEdit = ({ route }) => {
         <NewsManagementContainer>
           <LineRow style={{ justifyContent: 'center' }}>
             <NewsManagementButton
-              // onPress={() => {
-              //   navigation.navigate('AddEditNews', {
-              //     news,
-              //     status: 'save',
-              //   });
-              // }}
               onPress={() => {
-                setNews({ ...news, date: Date.now() });
+                setNews({
+                  ...news,
+                  date: Date.now(),
+                });
+                setAction('saved');
               }}
             >
               <NewsManagementButtonText>SALVAR</NewsManagementButtonText>
