@@ -3,7 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { TextInput, Alert } from 'react-native';
 
 // Modules Imports
-import { useNavigation } from '@react-navigation/native';
+import {
+  useNavigation,
+  useIsFocused,
+  CommonActions,
+} from '@react-navigation/native';
+import 'react-native-get-random-values';
+import { v4 as uuid } from 'uuid';
 
 // Styles Import
 import {
@@ -24,8 +30,11 @@ import {
   NewsManagementButtonText,
 } from './styles';
 
-const NewsAddEdit = ({ route }) => {
+const AddEditNews = ({ route }) => {
+  // console.log('@AddEditNews route', route.params);
   const [action, setAction] = useState('');
+  const [newsStatus, setNewsStatus] = useState('');
+  const [newsSaved, setNewsSaved] = useState('');
   const [news, setNews] = useState({
     author: '',
     date: '',
@@ -34,20 +43,69 @@ const NewsAddEdit = ({ route }) => {
     title: '',
   });
 
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
 
-  useEffect(() => {
-    if (route.params !== undefined) {
-      const { newsItem, status } = route.params;
-      setNews(newsItem);
-      setAction({ status });
+  /**  Functions */
+  const checkForm = () => {
+    if (newsSaved.author === undefined || newsSaved.author === '') {
+      Alert.alert('Atenção', 'Campo Autor da Notícia é obrigatório.');
+      return;
     }
-  }, [route]);
+    if (newsSaved.title === undefined || newsSaved.title === '') {
+      Alert.alert('Atenção', 'Campo Título da Notícia é obrigatório.');
+      return;
+    }
+    if (newsSaved.newsContent === undefined || newsSaved.newsContent === '') {
+      Alert.alert('Atenção', 'Campo Texto da Notícia é obrigatório.');
+      return;
+    }
+    // console.log('newsSaved', newsSaved);
+    setNewsSaved({
+      ...newsSaved,
+      date: Date.now(),
+      id: newsStatus === 'new' ? uuid() : news.id,
+    });
+    setAction('saved');
+  };
 
   useEffect(() => {
+    if (route.params === undefined && isFocused) {
+      setNewsStatus('new');
+    } else setNewsStatus('old');
+
+    if (route.params !== undefined && isFocused) {
+      const { newsItem, newsAction } = route.params;
+      setNews(newsItem);
+      setAction(newsAction);
+    }
+  }, [isFocused]);
+
+  useEffect(() => {
+    if (newsStatus === 'old') {
+      setNewsSaved(news);
+    }
+  }, [news]);
+
+  useEffect(() => {
+    // Save a modified news
+    // console.log('@useEffect_action newsSaved', newsSaved);
+    // console.log('@useEffect_action action', action);
+    // console.log('@useEffect_action newsStatus', newsStatus);
     if (action === 'saved') {
-      Alert.alert('Sucesso', 'A notícia foi alterada!');
-      navigation.navigate('ListNews', { newsItem: news, action });
+      Alert.alert('Sucesso', 'A notícia foi registrada!');
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            { name: 'AddEditNews' },
+            {
+              name: 'ListNews',
+              params: { newsItem: newsSaved, action, newsStatus },
+            },
+          ],
+        }),
+      );
     }
   }, [action]);
 
@@ -59,8 +117,10 @@ const NewsAddEdit = ({ route }) => {
             <NewsEditAddAuthorLabel>Autor da Notícia</NewsEditAddAuthorLabel>
             <NewsEditAddAuthorFieldContainer>
               <TextInput
-                defaultValue={news.author}
-                onChangeText={text => setNews({ ...news, author: text })}
+                defaultValue={!isFocused ? '' : news.author}
+                onChangeText={text =>
+                  setNewsSaved({ ...newsSaved, author: text })
+                }
               />
             </NewsEditAddAuthorFieldContainer>
           </LineColumn>
@@ -71,7 +131,9 @@ const NewsAddEdit = ({ route }) => {
             <NewsEditAddTitleFieldContainer>
               <TextInput
                 defaultValue={news.title}
-                onChangeText={text => setNews({ ...news, title: text })}
+                onChangeText={text =>
+                  setNewsSaved({ ...newsSaved, title: text })
+                }
               />
             </NewsEditAddTitleFieldContainer>
           </LineColumn>
@@ -83,7 +145,9 @@ const NewsAddEdit = ({ route }) => {
               <TextInput
                 multiline
                 defaultValue={news.newsContent}
-                onChangeText={text => setNews({ ...news, newsContent: text })}
+                onChangeText={text =>
+                  setNewsSaved({ ...newsSaved, newsContent: text })
+                }
               />
             </NewsEditAddTextFieldContainer>
           </LineColumn>
@@ -92,11 +156,7 @@ const NewsAddEdit = ({ route }) => {
           <LineRow style={{ justifyContent: 'center' }}>
             <NewsManagementButton
               onPress={() => {
-                setNews({
-                  ...news,
-                  date: Date.now(),
-                });
-                setAction('saved');
+                checkForm();
               }}
             >
               <NewsManagementButtonText>SALVAR</NewsManagementButtonText>
@@ -108,4 +168,4 @@ const NewsAddEdit = ({ route }) => {
   );
 };
 
-export default NewsAddEdit;
+export default AddEditNews;

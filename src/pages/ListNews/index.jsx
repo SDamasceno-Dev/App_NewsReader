@@ -21,34 +21,28 @@ import {
 
 const ListNews = ({ route }) => {
   const [newsAction, setNewsAction] = useState('');
+  const [newsStatus, setNewsStatus] = useState('');
   const [news, setNews] = useState([
     {
       id: '123',
-      author:
-        'Aliquam convallis non neque id malesuada de Oliveira da Silva Lima',
+      author: 'Autor01',
       date: Date.now(),
-      title:
-        'Praesent lacinia tristique viverra. Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.',
-      newsContent:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus elementum ex, eu rhoncus metus tempus a. Suspendisse in egestas nibh. Aenean sagittis nulla sit amet leo vestibulum interdum. Morbi et nulla mauris. Aliquam ut suscipit eros, ac elementum ipsum. Nulla leo massa, tristique non hendrerit non, faucibus quis odio.',
+      title: 'Title01',
+      newsContent: 'Content01',
     },
     {
       id: '456',
-      author: 'Aliquam convallis non neque id malesuada de Oliveira da Silva',
+      author: 'Autor02',
       date: Date.now(),
-      title:
-        'Praesent lacinia tristique viverra. Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.',
-      newsContent:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus elementum ex, eu rhoncus metus tempus a. Suspendisse in egestas nibh. Aenean sagittis nulla sit amet leo vestibulum interdum. Morbi et nulla mauris. Aliquam ut suscipit eros, ac elementum ipsum. Nulla leo massa, tristique non hendrerit non, faucibus quis odio.',
+      title: 'Title02',
+      newsContent: 'Content02',
     },
     {
       id: '789',
-      author: 'Aliquam convallis non neque id malesuada de Oliveira da Silva',
+      author: 'Autor03',
       date: Date.now(),
-      title:
-        'Praesent lacinia tristique viverra. Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.',
-      newsContent:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus elementum ex, eu rhoncus metus tempus a. Suspendisse in egestas nibh. Aenean sagittis nulla sit amet leo vestibulum interdum. Morbi et nulla mauris. Aliquam ut suscipit eros, ac elementum ipsum. Nulla leo massa, tristique non hendrerit non, faucibus quis odio.',
+      title: 'Title03',
+      newsContent: 'Content03',
     },
   ]);
   const [newsItem, setNewsItem] = useState({});
@@ -56,28 +50,28 @@ const ListNews = ({ route }) => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    console.log(route);
+    console.log('@ListNews useEffect_route.params', route.params);
     if (route.params !== undefined) {
-      const { action, newsItem: item } = route.params;
+      const { action, newsItem: item, newsStatus: status } = route.params;
       setNewsAction(action);
       setNewsItem(item);
+      setNewsStatus(status);
     }
   }, [route]);
 
   useEffect(() => {
-    if (newsAction === 'saved') {
+    // console.log('@useEffect_newsAction newsStatus', newsStatus);
+    if (newsAction === 'saved' && newsStatus === 'old') {
+      const arr = [...news];
       const arrIndex = news.findIndex(newsEl => newsEl.id === newsItem.id);
-      news[arrIndex] = newsItem;
-      setNews(news);
-      setNewsAction('');
+      arr[arrIndex] = newsItem;
+      setNews(arr);
+    }
+
+    if (newsAction === 'saved' && newsStatus === 'new') {
+      // setNews(news => [...news, newsItem]);
     }
   }, [newsAction]);
-
-  useEffect(() => {
-    // console.log('news', news);
-    // console.log('action newsItem', action.newsItem);
-    // console.log('action status', action.status);
-  }, [news]);
 
   return (
     <Container>

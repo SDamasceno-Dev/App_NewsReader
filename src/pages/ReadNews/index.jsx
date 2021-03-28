@@ -25,6 +25,7 @@ import {
 } from './styles';
 
 const ReadNews = ({ route }) => {
+  // console.log('@ReadNews route', route);
   const { newsItem } = route.params;
 
   const navigation = useNavigation();
@@ -53,7 +54,7 @@ const ReadNews = ({ route }) => {
             onPress={() => {
               navigation.navigate('AddEditNews', {
                 newsItem,
-                status: 'editing',
+                newsAction: 'edit',
               });
             }}
           >
@@ -71,7 +72,7 @@ const ReadNews = ({ route }) => {
                     onPress: () => {
                       navigation.navigate('ListNews', {
                         newsItem,
-                        action: 'deleted',
+                        newsAction: 'delete',
                       });
                     },
                   },
