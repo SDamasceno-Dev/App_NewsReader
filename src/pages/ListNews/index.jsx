@@ -1,12 +1,15 @@
 // React Imports
 import React, { useState, useEffect } from 'react';
-import { TextInput, SafeAreaView, FlatList } from 'react-native';
+import { TextInput, FlatList } from 'react-native';
 
 // Modules Imports
 import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 // Styles imports
 import {
+  Container,
   LineRow,
   InputContainer,
   NewsContainer,
@@ -23,7 +26,7 @@ const ListNews = ({ route }) => {
       id: '123',
       author:
         'Aliquam convallis non neque id malesuada de Oliveira da Silva Lima',
-      date: '28/10/1976',
+      date: Date.now(),
       title:
         'Praesent lacinia tristique viverra. Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.',
       newsContent:
@@ -32,7 +35,7 @@ const ListNews = ({ route }) => {
     {
       id: '456',
       author: 'Aliquam convallis non neque id malesuada de Oliveira da Silva',
-      date: '17/12/1976',
+      date: Date.now(),
       title:
         'Praesent lacinia tristique viverra. Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.',
       newsContent:
@@ -41,7 +44,7 @@ const ListNews = ({ route }) => {
     {
       id: '789',
       author: 'Aliquam convallis non neque id malesuada de Oliveira da Silva',
-      date: '14/07/1985',
+      date: Date.now(),
       title:
         'Praesent lacinia tristique viverra. Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.',
       newsContent:
@@ -77,7 +80,7 @@ const ListNews = ({ route }) => {
   }, [news]);
 
   return (
-    <SafeAreaView>
+    <Container>
       <InputContainer>
         <TextInput
           placeholder="Pesquisar notícias..."
@@ -98,7 +101,9 @@ const ListNews = ({ route }) => {
                 <NewsAuthorText numberOfLines={1}>
                   {newsItem.author}
                 </NewsAuthorText>
-                <NewsDateText>{newsItem.date}</NewsDateText>
+                <NewsDateText>
+                  {moment(newsItem.date).format('DD/MM/YYYY')}
+                </NewsDateText>
               </LineRow>
               <NewsTitleText numberOfLines={2}>{newsItem.title}</NewsTitleText>
               <NewsContentText numberOfLines={2}>
@@ -108,7 +113,7 @@ const ListNews = ({ route }) => {
           );
         }}
       />
-    </SafeAreaView>
+    </Container>
   );
 };
 

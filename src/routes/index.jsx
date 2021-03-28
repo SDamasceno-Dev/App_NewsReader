@@ -36,7 +36,7 @@ const AppRoutes = () => {
       />
       <App.Screen
         name="ListNews"
-        component={ListNews}
+        component={TabBottomMenu}
         options={{
           headerShown: true,
           headerLeft: () => null,
@@ -67,7 +67,13 @@ const AppRoutes = () => {
 
 const TabBottomMenu = () => {
   return (
-    <TabBottomNav.Navigator>
+    <TabBottomNav.Navigator
+      tabBarOptions={{
+        activeTintColor: '#022c64',
+        inactiveTintColor: 'gray',
+        keyboardHidesTabBar: false,
+      }}
+    >
       <TabBottomNav.Screen
         name="ListNews"
         component={ListNews}
@@ -75,6 +81,16 @@ const TabBottomMenu = () => {
           headerShown: true,
           headerLeft: () => null,
           headerTitle: <LogoMini />,
+          backgroundColor: '#fff',
+        }}
+      />
+      <TabBottomNav.Screen
+        name="AddEditNews"
+        component={AddEditNews}
+        options={{
+          headerShown: true,
+          headerTitle: <LogoMini />,
+          headerBackTitleVisible: false,
         }}
       />
     </TabBottomNav.Navigator>

@@ -1,6 +1,10 @@
 // Styled Components Imports
 import styled from 'styled-components/native';
 
+export const Container = styled.SafeAreaView`
+  background-color: #fff;
+`;
+
 export const LineRow = styled.View`
   flex-direction: row;
   width: 100%;
