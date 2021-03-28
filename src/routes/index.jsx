@@ -52,6 +52,15 @@ const AppRoutes = () => {
           headerBackTitleVisible: false,
         }}
       />
+      <App.Screen
+        name="AddEditNews"
+        component={AddEditNews}
+        options={{
+          headerShown: true,
+          headerTitle: <LogoMini />,
+          headerBackTitleVisible: false,
+        }}
+      />
     </App.Navigator>
   );
 };

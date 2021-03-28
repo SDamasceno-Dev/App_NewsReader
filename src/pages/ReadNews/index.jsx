@@ -49,7 +49,14 @@ const ReadNews = ({ route }) => {
       </NewsContentScroll>
       <NewsManagementContainer>
         <LineRow style={{ justifyContent: 'space-between' }}>
-          <NewsManagementButton>
+          <NewsManagementButton
+            onPress={() => {
+              navigation.navigate('AddEditNews', {
+                newsItem,
+                status: 'edit',
+              });
+            }}
+          >
             <NewsManagementButtonText>EDITAR</NewsManagementButtonText>
           </NewsManagementButton>
           <NewsManagementButton
