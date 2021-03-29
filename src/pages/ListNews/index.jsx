@@ -57,22 +57,45 @@ const ListNews = ({ route }) => {
 
   /**  Functions  * */
 
-  const resetIndex = useCallback(() => {
-    setNewsIndexResult([]);
-  }, []);
-
+  // Find news with the term searched
   const handleSearchNews = srcTerm => {
-    resetIndex();
+    const arr = [];
+    // In case of search nothing
+    if (srcTerm.replace(/ /g, '') === '') {
+      setNewsSearch([]);
+      return;
+    }
     news.map((el, index) => {
       if (el.newsContent.includes(srcTerm)) {
-        setNewsIndexResult([...newsIndexResult, index]);
+        arr.push(index);
+      }
+      if (el.author.includes(srcTerm)) {
+        arr.push(index);
+      }
+      if (el.title.includes(srcTerm)) {
+        arr.push(index);
       }
     });
+    setNewsIndexResult(arr);
+  };
+
+  // Create new array with news searched
+  const newsSearchedArray = () => {
+    const arr = [...new Set(newsIndexResult)];
+    const arrNews = [];
+    for (let i = 0; i < arr.length; i += 1) {
+      arrNews.push(news[arr[i]]);
+    }
+    setNewsSearch(arrNews);
   };
 
   useEffect(() => {
-    console.log('newsIndexResult', newsIndexResult);
+    newsSearchedArray();
   }, [newsIndexResult]);
+
+  useEffect(() => {
+    console.log('newsSearch', newsSearch.length);
+  }, [newsSearch]);
 
   useEffect(() => {
     if (route.params !== undefined) {
@@ -129,8 +152,8 @@ const ListNews = ({ route }) => {
         />
       </InputContainer>
       <FlatList
-        style={{ minHeight: '80%' }}
-        data={news}
+        style={{ height: '80%' }}
+        data={newsSearch.length > 0 ? newsSearch : news}
         keyExtractor={newsItem => newsItem.id}
         renderItem={({ item: newsItem }) => {
           return (
