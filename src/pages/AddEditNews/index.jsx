@@ -1,6 +1,14 @@
 //  React Native imports
 import React, { useEffect, useState } from 'react';
-import { TextInput, Alert } from 'react-native';
+import {
+  TextInput,
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Dimensions,
+} from 'react-native';
 
 // Modules Imports
 import {
@@ -45,6 +53,8 @@ const AddEditNews = ({ route }) => {
 
   const isFocused = useIsFocused();
   const navigation = useNavigation();
+
+  const windowHeight = Dimensions.get('window').height;
 
   /**  Functions */
   const checkForm = () => {
@@ -107,62 +117,89 @@ const AddEditNews = ({ route }) => {
   }, [action]);
 
   return (
-    <Container>
-      <>
-        <NewsEditAddAuthorContainer>
-          <LineColumn>
-            <NewsEditAddAuthorLabel>Autor da Notícia</NewsEditAddAuthorLabel>
-            <NewsEditAddAuthorFieldContainer>
-              <TextInput
-                defaultValue={!isFocused ? '' : news.author}
-                onChangeText={text =>
-                  setNewsSaved({ ...newsSaved, author: text })
-                }
-              />
-            </NewsEditAddAuthorFieldContainer>
-          </LineColumn>
-        </NewsEditAddAuthorContainer>
-        <NewsEditAddTitleContainer>
-          <LineColumn>
-            <NewsEditAddTitleLabel>Título da Notícia</NewsEditAddTitleLabel>
-            <NewsEditAddTitleFieldContainer>
-              <TextInput
-                defaultValue={news.title}
-                onChangeText={text =>
-                  setNewsSaved({ ...newsSaved, title: text })
-                }
-              />
-            </NewsEditAddTitleFieldContainer>
-          </LineColumn>
-        </NewsEditAddTitleContainer>
-        <NewsEditAddTextContainer>
-          <LineColumn>
-            <NewsEditAddTextLabel>Texto da Notícia</NewsEditAddTextLabel>
-            <NewsEditAddTextFieldContainer>
-              <TextInput
-                multiline
-                defaultValue={news.newsContent}
-                onChangeText={text =>
-                  setNewsSaved({ ...newsSaved, newsContent: text })
-                }
-                style={{ textAlign: 'justify', paddingHorizontal: 8 }}
-              />
-            </NewsEditAddTextFieldContainer>
-          </LineColumn>
-        </NewsEditAddTextContainer>
-        <NewsManagementContainer>
-          <LineRow style={{ justifyContent: 'center' }}>
-            <NewsManagementButton
-              onPress={() => {
-                checkForm();
-              }}
-            >
-              <NewsManagementButtonText>SALVAR</NewsManagementButtonText>
-            </NewsManagementButton>
-          </LineRow>
-        </NewsManagementContainer>
-      </>
-    </Container>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{ flex: 1 }}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <Container>
+          <>
+            <NewsEditAddAuthorContainer>
+              <LineColumn>
+                <NewsEditAddAuthorLabel>
+                  Autor da Notícia
+                </NewsEditAddAuthorLabel>
+                <NewsEditAddAuthorFieldContainer>
+                  <TextInput
+                    defaultValue={!isFocused ? '' : news.author}
+                    onChangeText={text =>
+                      setNewsSaved({ ...newsSaved, author: text })
+                    }
+                    style={{
+                      color: '#022C64',
+                      width: '85%',
+                      height: 40,
+                    }}
+                    keyboardType="default"
+                    autoCapitalize="words"
+                  />
+                </NewsEditAddAuthorFieldContainer>
+              </LineColumn>
+            </NewsEditAddAuthorContainer>
+            <NewsEditAddTitleContainer>
+              <LineColumn>
+                <NewsEditAddTitleLabel>Título da Notícia</NewsEditAddTitleLabel>
+                <NewsEditAddTitleFieldContainer>
+                  <TextInput
+                    defaultValue={news.title}
+                    onChangeText={text =>
+                      setNewsSaved({ ...newsSaved, title: text })
+                    }
+                    style={{
+                      color: '#022C64',
+                      width: '85%',
+                      height: 40,
+                    }}
+                  />
+                </NewsEditAddTitleFieldContainer>
+              </LineColumn>
+            </NewsEditAddTitleContainer>
+            <NewsEditAddTextContainer>
+              <LineColumn>
+                <NewsEditAddTextLabel>Texto da Notícia</NewsEditAddTextLabel>
+                <NewsEditAddTextFieldContainer>
+                  <TextInput
+                    multiline
+                    defaultValue={news.newsContent}
+                    onChangeText={text =>
+                      setNewsSaved({ ...newsSaved, newsContent: text })
+                    }
+                    style={{
+                      textAlign: 'justify',
+                      paddingHorizontal: 8,
+                      paddingVertical: 5,
+                      textAlignVertical: 'top',
+                      maxHeight: windowHeight > 600 ? '95%' : '100%',
+                    }}
+                  />
+                </NewsEditAddTextFieldContainer>
+              </LineColumn>
+            </NewsEditAddTextContainer>
+            <NewsManagementContainer>
+              <LineRow style={{ justifyContent: 'center' }}>
+                <NewsManagementButton
+                  onPress={() => {
+                    checkForm();
+                  }}
+                >
+                  <NewsManagementButtonText>SALVAR</NewsManagementButtonText>
+                </NewsManagementButton>
+              </LineRow>
+            </NewsManagementContainer>
+          </>
+        </Container>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

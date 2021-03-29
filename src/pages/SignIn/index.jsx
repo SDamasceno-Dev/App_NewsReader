@@ -15,7 +15,7 @@ const SignIn = () => {
 
   return (
     <Container>
-      <Logo source={logoImage} />
+      <Logo resizeMode="contain" source={logoImage} />
       <BtnEntrar onPress={() => navigation.navigate('ListNews')}>
         <BtnEntrarText>ENTRAR</BtnEntrarText>
       </BtnEntrar>

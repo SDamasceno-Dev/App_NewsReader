@@ -1,4 +1,8 @@
 import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export const LineColumn = styled.View`
   width: 100%;
@@ -10,21 +14,13 @@ export const LineRow = styled.View`
   flex-direction: row;
 `;
 
-export const LineRowSB = styled.View`
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 0px 5px;
-  margin-top: 10px;
-`;
-
 export const RowElement = styled.View`
   flex-direction: row;
 `;
 
 export const NewsTitleContainer = styled.View`
   width: 100%;
-  height: 90px;
+  max-height: 90px;
   justify-content: center;
   align-items: center;
   padding: 10px;
@@ -66,7 +62,7 @@ export const NewsDate = styled.Text`
 `;
 
 export const NewsContentScroll = styled.ScrollView`
-  height: 70%;
+  min-height: ${windowHeight < 600 ? 55 : 65}%;
   margin-top: 10px;
   padding: 0px 10px;
 `;
@@ -85,12 +81,11 @@ export const NewsManagementContainer = styled.View`
   padding: 10px;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
   align-self: center;
 `;
 
 export const NewsManagementButton = styled.TouchableOpacity`
-  width: 150px;
+  width: ${windowWidth < 350 ? 130 : 150}px;
   height: 40px;
   border-radius: 20px;
   background-color: #022c64;

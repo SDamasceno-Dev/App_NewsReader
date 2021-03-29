@@ -1,10 +1,9 @@
 // React Imports
 import React from 'react';
-import { Image, Button } from 'react-native';
+import { Image, TouchableOpacity, Text } from 'react-native';
 
-// REact Navigation Imports
+// React Navigation Imports
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Pages Imports
 import SignIn from '../pages/SignIn';
@@ -14,10 +13,14 @@ import AddEditNews from '../pages/AddEditNews';
 
 // Assets Imports
 import LogoMiniImg from '../assets/NewsReaderMini.png';
+import ReadNewsIcon from '../components/CustomIcon';
+
+// Styles imports
+import { BtnExit } from './styles';
 
 const App = createStackNavigator();
-const TabBottomNav = createBottomTabNavigator();
 
+// Some assets components
 const LogoMini = () => {
   return <Image source={LogoMiniImg} />;
 };
@@ -40,8 +43,13 @@ const AppRoutes = () => {
         options={{
           headerShown: true,
           headerLeft: () => null,
-          headerRight: () => <Button title="Info" color="#336699" />,
+          headerRight: () => (
+            <BtnExit>
+              <ReadNewsIcon name="sign-out-solid" size={25} color="#022c64" />
+            </BtnExit>
+          ),
           headerTitle: <LogoMini />,
+          headerTitleAlign: 'center',
           backgroundColor: '#fff',
         }}
       />
@@ -51,6 +59,7 @@ const AppRoutes = () => {
         options={{
           headerShown: true,
           headerTitle: <LogoMini />,
+          headerTitleAlign: 'center',
           headerBackTitleVisible: false,
         }}
       />
@@ -60,6 +69,7 @@ const AppRoutes = () => {
         options={{
           headerShown: true,
           headerTitle: <LogoMini />,
+          headerTitleAlign: 'center',
           headerBackTitleVisible: false,
         }}
       />

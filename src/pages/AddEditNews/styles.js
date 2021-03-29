@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
-import {} from 'react-native';
+import { Dimensions } from 'react-native';
+
+const windowHeight = Dimensions.get('window').height;
 
 export const Container = styled.View`
   flex: 1;
@@ -63,7 +65,7 @@ export const NewsEditAddTitleFieldContainer = styled.View`
 
 export const NewsEditAddTextContainer = styled.View`
   width: 100%;
-  height: 63%;
+  height: ${windowHeight < 600 ? 30 : 55}%;
 `;
 
 export const NewsEditAddTextLabel = styled.Text`
@@ -75,22 +77,21 @@ export const NewsEditAddTextLabel = styled.Text`
 
 export const NewsEditAddTextFieldContainer = styled.View`
   width: 100%;
-  height: 95%;
+  height: ${windowHeight > 600 ? 92 : 100}%;
   border-radius: 15px;
   border-color: #ccc;
   border-width: 0.5px;
-  padding: 5px 10px;
+  padding: 0px 0px;
 `;
 
 // News Management
 export const NewsManagementContainer = styled.View`
   width: 95%;
-  height: 80px;
-  padding: 10px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   align-self: center;
+  margin-top: 50px;
 `;
 
 export const NewsManagementButton = styled.TouchableOpacity`
@@ -100,6 +101,7 @@ export const NewsManagementButton = styled.TouchableOpacity`
   background-color: #022c64;
   justify-content: center;
   align-items: center;
+  margin: 5px 0px;
 `;
 
 export const NewsManagementButtonText = styled.Text`

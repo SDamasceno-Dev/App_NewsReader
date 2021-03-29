@@ -7,6 +7,9 @@ import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 
+// Assets imports
+import ReadNewsIcon from '../../components/CustomIcon';
+
 // Styles imports
 import {
   Container,
@@ -117,6 +120,7 @@ const ListNews = ({ route }) => {
     if (newsAction === 'saved' && newsStatus === 'new') {
       setNews([...news, newsItem]);
       setNewsAction('done');
+      setNewsSearch([]);
     }
 
     // Modify a news item
@@ -126,18 +130,16 @@ const ListNews = ({ route }) => {
       arr[arrIndex] = newsItem;
       setNews(arr);
       setNewsAction('done');
+      setNewsSearch([]);
     }
 
     // Delete a news item
     if (newsAction === 'delete') {
       setNews(news.filter(newsEl => newsEl.id !== newsItem.id));
+      setNewsAction('done');
       setNewsSearch([]);
     }
   }, [newsAction]);
-
-  useEffect(() => {
-    // console.log('searchTerm', searchTerm);
-  }, [searchTerm]);
 
   return (
     <Container>
@@ -145,7 +147,11 @@ const ListNews = ({ route }) => {
         <TextInput
           placeholder="Pesquisar notícias..."
           placeholderTextColor="#ccc"
-          style={{ color: '#022C64', width: '85%' }}
+          style={{
+            color: '#022C64',
+            width: '85%',
+            height: 40,
+          }}
           onChangeText={text => {
             setSearchTerm(text);
           }}
@@ -155,7 +161,9 @@ const ListNews = ({ route }) => {
           onPress={() => {
             handleSearchNews(searchTerm);
           }}
-        />
+        >
+          <ReadNewsIcon name="search-light" size={20} color="#999" />
+        </SearchButton>
       </InputContainer>
       <FlatList
         style={{ height: '80%' }}
@@ -187,6 +195,7 @@ const ListNews = ({ route }) => {
           navigation.navigate('AddEditNews');
         }}
       >
+        <ReadNewsIcon name="comment-plus-light" size={20} color="#fff" />
         <NewsButtonNewText>CADASTRAR NOVA NOTÍCIA</NewsButtonNewText>
       </NewsButtonNew>
     </Container>

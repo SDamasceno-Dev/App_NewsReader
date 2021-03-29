@@ -17,19 +17,16 @@ export const InputContainer = styled.View`
   border-radius: 20px;
   border-color: #cccccc;
   border-width: 0.5px;
-  padding: 5px;
+  margin-top: 5px;
   align-self: center;
   justify-content: center;
 `;
 
 export const SearchButton = styled.TouchableOpacity`
   width: 30px;
-  height: 30px;
+  height: 40px;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
-  border-width: 0.5px;
-  border-color: #666;
 `;
 
 // News Items Elements
@@ -72,6 +69,7 @@ export const NewsContentText = styled.Text`
 export const NewsButtonNew = styled.TouchableOpacity`
   width: 90%;
   height: 50px;
+  flex-direction: row;
   background-color: #022c64;
   border-radius: 15px;
   align-items: center;
@@ -84,4 +82,5 @@ export const NewsButtonNewText = styled.Text`
   font-family: 'ProximaNova-Medium';
   font-size: 14px;
   color: #fff;
+  margin-left: 30px;
 `;

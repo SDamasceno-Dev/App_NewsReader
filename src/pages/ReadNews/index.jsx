@@ -1,6 +1,6 @@
 //  React Native imports
 import React from 'react';
-import { SafeAreaView, Alert } from 'react-native';
+import { Alert } from 'react-native';
 
 // Modules Imports
 import { useNavigation } from '@react-navigation/native';
@@ -11,7 +11,6 @@ import 'moment/locale/pt-br';
 import {
   LineColumn,
   LineRow,
-  LineRowSB,
   RowElement,
   NewsTitleContainer,
   NewsTitle,
@@ -33,7 +32,7 @@ const ReadNews = ({ route }) => {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView>
+    <>
       <NewsTitleContainer>
         <NewsTitle numberOfLines={3}>{newsItem.title}</NewsTitle>
       </NewsTitleContainer>
@@ -86,7 +85,7 @@ const ReadNews = ({ route }) => {
           </NewsManagementButton>
         </LineRow>
       </NewsManagementContainer>
-    </SafeAreaView>
+    </>
   );
 };
 
