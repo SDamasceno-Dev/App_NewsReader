@@ -13,12 +13,23 @@ export const LineRow = styled.View`
 export const InputContainer = styled.View`
   width: 95%;
   height: 40px;
+  flex-direction: row;
   border-radius: 20px;
   border-color: #cccccc;
   border-width: 0.5px;
   padding: 5px;
   align-self: center;
   justify-content: center;
+`;
+
+export const SearchButton = styled.TouchableOpacity`
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border-width: 0.5px;
+  border-color: #666;
 `;
 
 // News Items Elements

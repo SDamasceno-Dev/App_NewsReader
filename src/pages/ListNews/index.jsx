@@ -1,5 +1,5 @@
 // React Imports
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { TextInput, FlatList } from 'react-native';
 
 // Modules Imports
@@ -12,6 +12,7 @@ import {
   Container,
   LineRow,
   InputContainer,
+  SearchButton,
   NewsContainer,
   NewsAuthorText,
   NewsDateText,
@@ -22,15 +23,58 @@ import {
 } from './styles';
 
 const ListNews = ({ route }) => {
+  const [news, setNews] = useState([
+    {
+      id: '123',
+      author: 'Autor01',
+      date: Date.now(),
+      title: 'Title01',
+      newsContent: 'Content01 Flávia',
+    },
+    {
+      id: '456',
+      author: 'Autor02',
+      date: Date.now(),
+      title: 'Title02',
+      newsContent: 'Content02 Sandro',
+    },
+    {
+      id: '789',
+      author: 'Autor03',
+      date: Date.now(),
+      title: 'Title03',
+      newsContent: 'Content03 meninos',
+    },
+  ]);
   const [newsAction, setNewsAction] = useState('');
   const [newsStatus, setNewsStatus] = useState('');
-  const [news, setNews] = useState([]);
   const [newsItem, setNewsItem] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
+  const [newsSearch, setNewsSearch] = useState('');
+  const [newsIndexResult, setNewsIndexResult] = useState([]);
 
   const navigation = useNavigation();
 
+  /**  Functions  * */
+
+  const resetIndex = useCallback(() => {
+    setNewsIndexResult([]);
+  }, []);
+
+  const handleSearchNews = srcTerm => {
+    resetIndex();
+    news.map((el, index) => {
+      if (el.newsContent.includes(srcTerm)) {
+        setNewsIndexResult([...newsIndexResult, index]);
+      }
+    });
+  };
+
   useEffect(() => {
-    console.log('@ListNews useEffect_route.params', route.params);
+    console.log('newsIndexResult', newsIndexResult);
+  }, [newsIndexResult]);
+
+  useEffect(() => {
     if (route.params !== undefined) {
       const { action, newsItem: item, newsStatus: status } = route.params;
       setNewsAction(action);
@@ -40,7 +84,6 @@ const ListNews = ({ route }) => {
   }, [route]);
 
   useEffect(() => {
-    console.log('newsAction', newsAction);
     // Save a new news
     if (newsAction === 'saved' && newsStatus === 'new') {
       setNews([...news, newsItem]);
@@ -64,8 +107,8 @@ const ListNews = ({ route }) => {
   }, [newsAction]);
 
   useEffect(() => {
-    // console.log('news', news);
-  }, [news]);
+    // console.log('searchTerm', searchTerm);
+  }, [searchTerm]);
 
   return (
     <Container>
@@ -73,7 +116,16 @@ const ListNews = ({ route }) => {
         <TextInput
           placeholder="Pesquisar notícias..."
           placeholderTextColor="#ccc"
-          style={{ color: '#022C64' }}
+          style={{ color: '#022C64', width: '85%' }}
+          onChangeText={text => {
+            setSearchTerm(text);
+          }}
+          autoCapitalize="none"
+        />
+        <SearchButton
+          onPress={() => {
+            handleSearchNews(searchTerm);
+          }}
         />
       </InputContainer>
       <FlatList
