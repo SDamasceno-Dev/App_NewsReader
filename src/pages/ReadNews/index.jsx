@@ -54,7 +54,7 @@ const ReadNews = ({ route }) => {
             onPress={() => {
               navigation.navigate('AddEditNews', {
                 newsItem,
-                newsAction: 'edit',
+                action: 'edit',
               });
             }}
           >
@@ -72,7 +72,7 @@ const ReadNews = ({ route }) => {
                     onPress: () => {
                       navigation.navigate('ListNews', {
                         newsItem,
-                        newsAction: 'delete',
+                        action: 'delete',
                       });
                     },
                   },

@@ -17,34 +17,14 @@ import {
   NewsDateText,
   NewsContentText,
   NewsTitleText,
+  NewsButtonNew,
+  NewsButtonNewText,
 } from './styles';
 
 const ListNews = ({ route }) => {
   const [newsAction, setNewsAction] = useState('');
   const [newsStatus, setNewsStatus] = useState('');
-  const [news, setNews] = useState([
-    {
-      id: '123',
-      author: 'Autor01',
-      date: Date.now(),
-      title: 'Title01',
-      newsContent: 'Content01',
-    },
-    {
-      id: '456',
-      author: 'Autor02',
-      date: Date.now(),
-      title: 'Title02',
-      newsContent: 'Content02',
-    },
-    {
-      id: '789',
-      author: 'Autor03',
-      date: Date.now(),
-      title: 'Title03',
-      newsContent: 'Content03',
-    },
-  ]);
+  const [news, setNews] = useState([]);
   const [newsItem, setNewsItem] = useState({});
 
   const navigation = useNavigation();
@@ -60,18 +40,32 @@ const ListNews = ({ route }) => {
   }, [route]);
 
   useEffect(() => {
-    // console.log('@useEffect_newsAction newsStatus', newsStatus);
+    console.log('newsAction', newsAction);
+    // Save a new news
+    if (newsAction === 'saved' && newsStatus === 'new') {
+      setNews([...news, newsItem]);
+      setNewsAction('done');
+    }
+
+    // Modify a news item
     if (newsAction === 'saved' && newsStatus === 'old') {
       const arr = [...news];
       const arrIndex = news.findIndex(newsEl => newsEl.id === newsItem.id);
       arr[arrIndex] = newsItem;
       setNews(arr);
+      setNewsAction('done');
     }
 
-    if (newsAction === 'saved' && newsStatus === 'new') {
-      // setNews(news => [...news, newsItem]);
+    // Delete a news item
+    if (newsAction === 'delete') {
+      console.log('entrou delete');
+      setNews(news.filter(newsEl => newsEl.id !== newsItem.id));
     }
   }, [newsAction]);
+
+  useEffect(() => {
+    // console.log('news', news);
+  }, [news]);
 
   return (
     <Container>
@@ -83,7 +77,7 @@ const ListNews = ({ route }) => {
         />
       </InputContainer>
       <FlatList
-        style={{ minHeight: '100%' }}
+        style={{ minHeight: '80%' }}
         data={news}
         keyExtractor={newsItem => newsItem.id}
         renderItem={({ item: newsItem }) => {
@@ -107,6 +101,13 @@ const ListNews = ({ route }) => {
           );
         }}
       />
+      <NewsButtonNew
+        onPress={() => {
+          navigation.navigate('AddEditNews');
+        }}
+      >
+        <NewsButtonNewText>CADASTRAR NOVA NOTÍCIA</NewsButtonNewText>
+      </NewsButtonNew>
     </Container>
   );
 };

@@ -70,6 +70,7 @@ const AddEditNews = ({ route }) => {
   };
 
   useEffect(() => {
+    setAction('');
     if (route.params === undefined && isFocused) {
       setNewsStatus('new');
     } else setNewsStatus('old');
@@ -89,23 +90,19 @@ const AddEditNews = ({ route }) => {
 
   useEffect(() => {
     // Save a modified news
-    // console.log('@useEffect_action newsSaved', newsSaved);
-    // console.log('@useEffect_action action', action);
-    // console.log('@useEffect_action newsStatus', newsStatus);
     if (action === 'saved') {
       Alert.alert('Sucesso', 'A notícia foi registrada!');
       navigation.dispatch(
         CommonActions.reset({
           index: 1,
-          routes: [
-            { name: 'AddEditNews' },
-            {
-              name: 'ListNews',
-              params: { newsItem: newsSaved, action, newsStatus },
-            },
-          ],
+          routes: [{ name: 'AddEditNews' }],
         }),
       );
+      navigation.navigate('ListNews', {
+        newsItem: newsSaved,
+        action,
+        newsStatus,
+      });
     }
   }, [action]);
 

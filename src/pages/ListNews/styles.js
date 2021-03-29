@@ -57,3 +57,20 @@ export const NewsContentText = styled.Text`
   font-size: 13px;
   color: #666;
 `;
+
+export const NewsButtonNew = styled.TouchableOpacity`
+  width: 90%;
+  height: 50px;
+  background-color: #022c64;
+  border-radius: 15px;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  margin: 20px 0px;
+`;
+
+export const NewsButtonNewText = styled.Text`
+  font-family: 'ProximaNova-Medium';
+  font-size: 14px;
+  color: #fff;
+`;
