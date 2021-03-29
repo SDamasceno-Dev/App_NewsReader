@@ -40,38 +40,60 @@ const AppRoutes = () => {
       <App.Screen
         name="ListNews"
         component={ListNews}
-        options={{
+        options={({ navigation }) => ({
           headerShown: true,
           headerLeft: () => null,
           headerRight: () => (
-            <BtnExit>
+            <BtnExit
+              onPress={() => {
+                navigation.navigate('SignIn');
+              }}
+            >
               <ReadNewsIcon name="sign-out-solid" size={25} color="#022c64" />
             </BtnExit>
           ),
           headerTitle: <LogoMini />,
           headerTitleAlign: 'center',
           backgroundColor: '#fff',
-        }}
+        })}
       />
       <App.Screen
         name="ReadNews"
         component={ReadNews}
-        options={{
+        options={({ navigation }) => ({
+          headerRight: () => (
+            <BtnExit
+              onPress={() => {
+                navigation.navigate('SignIn');
+              }}
+            >
+              <ReadNewsIcon name="sign-out-solid" size={25} color="#022c64" />
+            </BtnExit>
+          ),
           headerShown: true,
           headerTitle: <LogoMini />,
           headerTitleAlign: 'center',
           headerBackTitleVisible: false,
-        }}
+        })}
       />
       <App.Screen
         name="AddEditNews"
         component={AddEditNews}
-        options={{
+        options={({ navigation }) => ({
+          headerRight: () => (
+            <BtnExit
+              onPress={() => {
+                navigation.navigate('SignIn');
+              }}
+            >
+              <ReadNewsIcon name="sign-out-solid" size={25} color="#022c64" />
+            </BtnExit>
+          ),
           headerShown: true,
           headerTitle: <LogoMini />,
           headerTitleAlign: 'center',
           headerBackTitleVisible: false,
-        }}
+        })}
       />
     </App.Navigator>
   );

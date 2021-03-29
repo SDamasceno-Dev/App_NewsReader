@@ -14,8 +14,11 @@ import ReadNewsIcon from '../../components/CustomIcon';
 import {
   Container,
   LineRow,
+  TotalNews,
   InputContainer,
   SearchButton,
+  NoNewsContainer,
+  NoNewsText,
   NewsContainer,
   NewsAuthorText,
   NewsDateText,
@@ -26,29 +29,7 @@ import {
 } from './styles';
 
 const ListNews = ({ route }) => {
-  const [news, setNews] = useState([
-    {
-      id: '123',
-      author: 'Autor01',
-      date: Date.now(),
-      title: 'Title01',
-      newsContent: 'Content01 Flávia',
-    },
-    {
-      id: '456',
-      author: 'Autor02',
-      date: Date.now(),
-      title: 'Title02',
-      newsContent: 'Content02 Sandro',
-    },
-    {
-      id: '789',
-      author: 'Autor03',
-      date: Date.now(),
-      title: 'Title03',
-      newsContent: 'Content03 meninos',
-    },
-  ]);
+  const [news, setNews] = useState([]);
   const [newsAction, setNewsAction] = useState('');
   const [newsStatus, setNewsStatus] = useState('');
   const [newsItem, setNewsItem] = useState({});
@@ -103,10 +84,6 @@ const ListNews = ({ route }) => {
   }, [newsIndexResult]);
 
   useEffect(() => {
-    console.log('newsSearch', newsSearch.length);
-  }, [newsSearch]);
-
-  useEffect(() => {
     if (route.params !== undefined) {
       const { action, newsItem: item, newsStatus: status } = route.params;
       setNewsAction(action);
@@ -143,6 +120,7 @@ const ListNews = ({ route }) => {
 
   return (
     <Container>
+      <TotalNews>Notícias cadastradas: {news.length} </TotalNews>
       <InputContainer>
         <TextInput
           placeholder="Pesquisar notícias..."
@@ -165,31 +143,40 @@ const ListNews = ({ route }) => {
           <ReadNewsIcon name="search-light" size={20} color="#999" />
         </SearchButton>
       </InputContainer>
-      <FlatList
-        style={{ height: '80%' }}
-        data={newsSearch.length > 0 ? newsSearch : news}
-        keyExtractor={newsItem => newsItem.id}
-        renderItem={({ item: newsItem }) => {
-          return (
-            <NewsContainer
-              onPress={() => navigation.navigate('ReadNews', { newsItem })}
-            >
-              <LineRow style={{ justifyContent: 'space-between' }}>
-                <NewsAuthorText numberOfLines={1}>
-                  {newsItem.author}
-                </NewsAuthorText>
-                <NewsDateText>
-                  {moment(newsItem.date).format('DD/MM/YYYY')}
-                </NewsDateText>
-              </LineRow>
-              <NewsTitleText numberOfLines={2}>{newsItem.title}</NewsTitleText>
-              <NewsContentText numberOfLines={2}>
-                {newsItem.newsContent}
-              </NewsContentText>
-            </NewsContainer>
-          );
-        }}
-      />
+      {news.length === 0 ? (
+        <NoNewsContainer>
+          <ReadNewsIcon name="sad-tear-light" size={30} color="#999" />
+          <NoNewsText>Nenhuma notícia cadastrada</NoNewsText>
+        </NoNewsContainer>
+      ) : (
+        <FlatList
+          style={{ height: '80%' }}
+          data={newsSearch.length > 0 ? newsSearch : news}
+          keyExtractor={newsItem => newsItem.id}
+          renderItem={({ item: newsItem }) => {
+            return (
+              <NewsContainer
+                onPress={() => navigation.navigate('ReadNews', { newsItem })}
+              >
+                <LineRow style={{ justifyContent: 'space-between' }}>
+                  <NewsAuthorText numberOfLines={1}>
+                    {newsItem.author}
+                  </NewsAuthorText>
+                  <NewsDateText>
+                    {moment(newsItem.date).format('DD/MM/YYYY')}
+                  </NewsDateText>
+                </LineRow>
+                <NewsTitleText numberOfLines={2}>
+                  {newsItem.title}
+                </NewsTitleText>
+                <NewsContentText numberOfLines={2}>
+                  {newsItem.newsContent}
+                </NewsContentText>
+              </NewsContainer>
+            );
+          }}
+        />
+      )}
       <NewsButtonNew
         onPress={() => {
           navigation.navigate('AddEditNews');

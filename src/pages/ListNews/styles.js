@@ -1,5 +1,9 @@
+import { Dimensions } from 'react-native';
+
 // Styled Components Imports
 import styled from 'styled-components/native';
+
+const windowHeight = Dimensions.get('window').height;
 
 export const Container = styled.SafeAreaView`
   background-color: #fff;
@@ -8,6 +12,13 @@ export const Container = styled.SafeAreaView`
 export const LineRow = styled.View`
   flex-direction: row;
   width: 100%;
+`;
+
+export const TotalNews = styled.Text`
+  font-family: 'ProximaNova-Medium';
+  font-size: 11px;
+  color: #022c64;
+  text-align: center;
 `;
 
 export const InputContainer = styled.View`
@@ -27,6 +38,19 @@ export const SearchButton = styled.TouchableOpacity`
   height: 40px;
   justify-content: center;
   align-items: center;
+`;
+
+// No News registered
+export const NoNewsContainer = styled.View`
+  height: ${windowHeight < 600 ? 70 : 78}%;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const NoNewsText = styled.Text`
+  font-family: 'ProximaNova-Medium';
+  font-size: 14px;
+  color: #333;
 `;
 
 // News Items Elements

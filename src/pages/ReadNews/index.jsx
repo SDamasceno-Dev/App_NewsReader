@@ -26,7 +26,6 @@ import {
 } from './styles';
 
 const ReadNews = ({ route }) => {
-  // console.log('@ReadNews route', route);
   const { newsItem } = route.params;
 
   const navigation = useNavigation();

@@ -39,7 +39,6 @@ import {
 } from './styles';
 
 const AddEditNews = ({ route }) => {
-  // console.log('@AddEditNews route', route.params);
   const [action, setAction] = useState('');
   const [newsStatus, setNewsStatus] = useState('');
   const [newsSaved, setNewsSaved] = useState('');
@@ -70,7 +69,6 @@ const AddEditNews = ({ route }) => {
       Alert.alert('Atenção', 'Campo Texto da Notícia é obrigatório.');
       return;
     }
-    // console.log('newsSaved', newsSaved);
     setNewsSaved({
       ...newsSaved,
       date: Date.now(),
