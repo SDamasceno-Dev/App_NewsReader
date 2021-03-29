@@ -145,6 +145,7 @@ const AddEditNews = ({ route }) => {
                 onChangeText={text =>
                   setNewsSaved({ ...newsSaved, newsContent: text })
                 }
+                style={{ textAlign: 'justify', paddingHorizontal: 8 }}
               />
             </NewsEditAddTextFieldContainer>
           </LineColumn>

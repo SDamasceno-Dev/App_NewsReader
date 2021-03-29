@@ -4,6 +4,8 @@ import { SafeAreaView, Alert } from 'react-native';
 
 // Modules Imports
 import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 // Styles Imports
 import {
@@ -42,7 +44,7 @@ const ReadNews = ({ route }) => {
         </RowElement>
         <RowElement>
           <NewsDateLabel>Última atualização: </NewsDateLabel>
-          <NewsDate>{newsItem.date}</NewsDate>
+          <NewsDate>{moment(newsItem.date).format('DD/MM/YYYY')}</NewsDate>
         </RowElement>
       </LineColumn>
       <NewsContentScroll>

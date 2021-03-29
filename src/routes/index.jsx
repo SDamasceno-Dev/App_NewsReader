@@ -1,6 +1,6 @@
 // React Imports
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, Button } from 'react-native';
 
 // REact Navigation Imports
 import { createStackNavigator } from '@react-navigation/stack';
@@ -40,6 +40,7 @@ const AppRoutes = () => {
         options={{
           headerShown: true,
           headerLeft: () => null,
+          headerRight: () => <Button title="Info" color="#336699" />,
           headerTitle: <LogoMini />,
           backgroundColor: '#fff',
         }}
@@ -65,37 +66,5 @@ const AppRoutes = () => {
     </App.Navigator>
   );
 };
-
-// const TabBottomMenu = () => {
-//   return (
-//     <TabBottomNav.Navigator
-//       tabBarOptions={{
-//         activeTintColor: '#022c64',
-//         inactiveTintColor: 'gray',
-//         keyboardHidesTabBar: false,
-//       }}
-//     >
-//       <TabBottomNav.Screen
-//         name="ListNews"
-//         component={ListNews}
-//         options={{
-//           headerShown: true,
-//           headerLeft: () => null,
-//           headerTitle: <LogoMini />,
-//           backgroundColor: '#fff',
-//         }}
-//       />
-//       <TabBottomNav.Screen
-//         name="AddEditNews"
-//         component={AddEditNews}
-//         options={{
-//           headerShown: true,
-//           headerTitle: <LogoMini />,
-//           headerBackTitleVisible: false,
-//         }}
-//       />
-//     </TabBottomNav.Navigator>
-//   );
-// };
 
 export default AppRoutes;

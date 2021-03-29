@@ -1,6 +1,6 @@
 // React Imports
 import React, { useState, useEffect, useCallback } from 'react';
-import { TextInput, FlatList } from 'react-native';
+import { TextInput, FlatList, Alert } from 'react-native';
 
 // Modules Imports
 import { useNavigation } from '@react-navigation/native';
@@ -76,6 +76,12 @@ const ListNews = ({ route }) => {
         arr.push(index);
       }
     });
+    if (arr.length === 0) {
+      Alert.alert(
+        'Pesquisa de Notícias',
+        `Não foram encontradas notícias com o termo: ${srcTerm}.`,
+      );
+    }
     setNewsIndexResult(arr);
   };
 
@@ -124,8 +130,8 @@ const ListNews = ({ route }) => {
 
     // Delete a news item
     if (newsAction === 'delete') {
-      console.log('entrou delete');
       setNews(news.filter(newsEl => newsEl.id !== newsItem.id));
+      setNewsSearch([]);
     }
   }, [newsAction]);
 
