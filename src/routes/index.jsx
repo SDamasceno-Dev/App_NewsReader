@@ -1,6 +1,10 @@
+/**
+ * Component of app routes
+ */
+
 // React Imports
 import React from 'react';
-import { Image, TouchableOpacity, Text } from 'react-native';
+import { Image } from 'react-native';
 
 // React Navigation Imports
 import { createStackNavigator } from '@react-navigation/stack';

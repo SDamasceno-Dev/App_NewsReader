@@ -1,3 +1,7 @@
+/**
+ * Component of initial screen of app
+ */
+
 // React Imports
 import React from 'react';
 
@@ -10,6 +14,7 @@ import logoImage from '../../assets/logo.png';
 // Styles import
 import { Container, Logo, BtnEntrar, BtnEntrarText } from './styles';
 
+// Component definition
 const SignIn = () => {
   const navigation = useNavigation();
 

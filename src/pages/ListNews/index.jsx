@@ -33,7 +33,9 @@ import {
   NewsButtonNewText,
 } from './styles';
 
+// Component definition
 const ListNews = ({ route }) => {
+  // State definition
   const [news, setNews] = useState([]);
   const [newsAction, setNewsAction] = useState('');
   const [newsStatus, setNewsStatus] = useState('');

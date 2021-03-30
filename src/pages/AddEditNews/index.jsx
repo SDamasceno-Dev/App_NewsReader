@@ -63,6 +63,8 @@ const AddEditNews = ({ route }) => {
   const windowHeight = Dimensions.get('window').height;
 
   /**  Functions */
+
+  // Check if all required fields has info
   const checkForm = () => {
     if (newsSaved.author === undefined || newsSaved.author === '') {
       Alert.alert('Atenção', 'Campo Autor da Notícia é obrigatório.');

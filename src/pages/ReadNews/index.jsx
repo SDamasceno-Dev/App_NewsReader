@@ -1,3 +1,7 @@
+/**
+ * Component to read the news
+ */
+
 //  React Native imports
 import React from 'react';
 import { Alert } from 'react-native';
@@ -26,7 +30,9 @@ import {
   NewsManagementButtonText,
 } from './styles';
 
+// Component definition
 const ReadNews = ({ route }) => {
+  // State definition
   const { item: newsItem } = route.params;
 
   const navigation = useNavigation();
