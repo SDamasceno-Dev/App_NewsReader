@@ -170,7 +170,7 @@ const ListNews = ({ route }) => {
                     {item.author}
                   </NewsAuthorText>
                   <NewsDateText>
-                    {moment(item.date).format('DD/MM/YYYY')}
+                    {moment(item.date).format('DD/MM/YYYY [às] HH[h]mm')}
                   </NewsDateText>
                 </LineRow>
                 <NewsTitleText numberOfLines={2}>{item.title}</NewsTitleText>

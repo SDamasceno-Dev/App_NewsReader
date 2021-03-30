@@ -2,15 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "container:newsreader.xcodeproj">
+      location = "container:/Users/linkdata/Desktop/SOD/Vaga_Mobile/Tarefa_React_Mobile/App/newsreader/ios/newsreader.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:Pods/Pods.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:newsreader.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

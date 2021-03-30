@@ -49,7 +49,9 @@ const ReadNews = ({ route }) => {
         </RowElement>
         <RowElement>
           <NewsDateLabel>Última atualização: </NewsDateLabel>
-          <NewsDate>{moment(newsItem.date).format('DD/MM/YYYY')}</NewsDate>
+          <NewsDate>
+            {moment(newsItem.date).format('DD/MM/YYYY [às] HH[h]mm')}
+          </NewsDate>
         </RowElement>
       </LineColumn>
       <NewsContentScroll>

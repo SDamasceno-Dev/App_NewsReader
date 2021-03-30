@@ -1,8 +1,10 @@
+// React modules import
 import { Dimensions } from 'react-native';
 
 // Styled Components Imports
 import styled from 'styled-components/native';
 
+const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export const Container = styled.SafeAreaView`
@@ -66,7 +68,8 @@ export const NewsContainer = styled.TouchableOpacity`
 `;
 
 export const NewsAuthorText = styled.Text`
-  width: 80%;
+  width: ${windowWidth < 350 ? 60 : 70}%;
+  /* width: 60%; */
   font-family: 'ProximaNova-Medium';
   font-size: 11px;
   color: #666;
