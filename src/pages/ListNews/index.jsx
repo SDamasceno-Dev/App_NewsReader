@@ -48,6 +48,15 @@ const ListNews = ({ route }) => {
 
   /**  Functions  * */
 
+  // Sort news by date desc
+  const sortNews = () => {
+    const sortedNews = news.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+    setNews(sortedNews);
+    setNewsAction('sorted');
+  };
+
   // Find news with the term searched
   const handleSearchNews = srcTerm => {
     const arr = [];
@@ -123,7 +132,15 @@ const ListNews = ({ route }) => {
       setNewsAction('done');
       setNewsSearch([]);
     }
-  }, [newsAction, newsItem, news, newsStatus]);
+
+    if (newsAction === 'done' && newsSearch.length === 0) {
+      sortNews();
+    }
+  }, [newsAction, newsItem, newsStatus]);
+
+  useEffect(() => {
+    sortNews();
+  }, []);
 
   return (
     <Container>
