@@ -139,12 +139,17 @@ Este App foi testado por meio de um dispositivo físico, conectado via cabo USB 
 
 Dessa maneira, o procedimento para compilação e instalação do App ocorrerá com os seguintes passos:
 
+---
+
 :warning: **Compilação para iOS**
+
 Após a execução do yarn para a instalação das dependências do App, faz-se necessário acessar a pasta newsreader/ios e executar o comando
 ```bash
 pod install
 ```
 para que todas as dependências sejam instaladas no arquivo pod.
+
+---
 
 ***Android - Dispositivo físico***
 
