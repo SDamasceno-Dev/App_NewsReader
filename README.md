@@ -139,6 +139,13 @@ Este App foi testado por meio de um dispositivo físico, conectado via cabo USB 
 
 Dessa maneira, o procedimento para compilação e instalação do App ocorrerá com os seguintes passos:
 
+:warning: **Compilação para iOS**
+> Após a execução do yarn para a instalação das dependências do App, faz-se neessário acessar a pasta newsreader/ios e executar o comando
+```bash
+pod install
+```
+para que todas as dependências sejam instaladas no arquivo pod.
+
 ***Android - Dispositivo físico***
 
 * Verifique se o dispositivo a ter o App instalado está com o modo de **Depuração USB** habilitado. Para se verificar isso, você pode seguir os passos descritos [aqui](https://react-native.rocketseat.dev/usb/android) ou pesquisar na WEB o procedimento para a habilitação desse modo para o seu aparelho;
@@ -176,17 +183,46 @@ Dessa maneira, o procedimento para compilação e instalação do App ocorrerá 
   yarn ios
   ```
 
-  # :camera: Apresentação
-  
-  Seguem abaixo algumas telas demonstrando a aparência do aplicativo.
+## :rotating_light: Possibilidade de erros na compilação para iOS
+Pode ocorrer, em casos específicos, o seguinte erro de compilação
+```bash
+...
+** BUILD FAILED **
 
-  ![SignIn](https://user-images.githubusercontent.com/58818002/113037047-5e9fef00-916b-11eb-8ae5-fdd674e1f521.png)
+The following build commands failed:
+PhaseScriptExecution [CP-User]\ Generate\ Specs...
+...
+```
+isso ocorre pois a nova versão do react (0.64) tem um bug reconhecido para fazer a referência à versão do node instalada na máquina. Para resolver essa quetão e poder compilar sem qualquer problema, basta efetuar o seguinte ajuste:
 
-  ![ListNews](https://user-images.githubusercontent.com/58818002/113037100-6bbcde00-916b-11eb-84a5-0c8b2cb03421.png)
+1. Acessar a pasta `newsreader/node_modules/react-native/scripts` e abrir o arquivo `find-node.sh`;
+2. Inserir o seguinte código nesse arquivo `unset PREFIX` logo antes do código `set -e` ficando então da seguinte maneira
+```bash
+...
 
-  ![ReadNews](https://user-images.githubusercontent.com/58818002/113037147-78413680-916b-11eb-8c1d-9668229d8fc7.png)
+# LICENSE file in the root directory of this source tree.
 
-  ![AddEditNews](https://user-images.githubusercontent.com/58818002/113037196-868f5280-916b-11eb-806e-f6aa304f9ce4.png)
+unset PREFIX
+set -e
+
+# Define NVM_DIR and source the nvm.sh setup script
+
+...
+```
+
+Para saber mais sobre o problema, ele está sendo acompanhado no seguinte link: https://github.com/react-native-community/upgrade-support/issues/138
+
+# :camera: Apresentação
+
+Seguem abaixo algumas telas demonstrando a aparência do aplicativo.
+
+![SignIn](https://user-images.githubusercontent.com/58818002/113037047-5e9fef00-916b-11eb-8ae5-fdd674e1f521.png)
+
+![ListNews](https://user-images.githubusercontent.com/58818002/113037100-6bbcde00-916b-11eb-84a5-0c8b2cb03421.png)
+
+![ReadNews](https://user-images.githubusercontent.com/58818002/113037147-78413680-916b-11eb-8c1d-9668229d8fc7.png)
+
+![AddEditNews](https://user-images.githubusercontent.com/58818002/113037196-868f5280-916b-11eb-806e-f6aa304f9ce4.png)
 
   ---
 Elaborado, criado e editado por **Sandro de Oliveira Damasceno** :space_invader:   [github!](https://github.com/SDamasceno-Dev) :octocat:
