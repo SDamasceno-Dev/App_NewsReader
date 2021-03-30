@@ -1,3 +1,7 @@
+/**
+ * Component to add or edit a news
+ */
+
 //  React Native imports
 import React, { useEffect, useState } from 'react';
 import {
@@ -18,6 +22,7 @@ import {
 } from '@react-navigation/native';
 import 'react-native-get-random-values';
 import { v4 as uuid } from 'uuid';
+import PropTypes from 'prop-types';
 
 // Styles Import
 import {
@@ -38,7 +43,9 @@ import {
   NewsManagementButtonText,
 } from './styles';
 
+// Component definition
 const AddEditNews = ({ route }) => {
+  // State definition
   const [action, setAction] = useState('');
   const [newsStatus, setNewsStatus] = useState('');
   const [newsSaved, setNewsSaved] = useState('');
@@ -77,6 +84,7 @@ const AddEditNews = ({ route }) => {
     setAction('saved');
   };
 
+  // Check the news state when this screen is focused
   useEffect(() => {
     setAction('');
     if (route.params === undefined && isFocused) {
@@ -88,13 +96,14 @@ const AddEditNews = ({ route }) => {
       setNews(newsItem);
       setAction(newsAction);
     }
-  }, [isFocused]);
+  }, [isFocused, route.params]);
 
+  // Management of a existent news
   useEffect(() => {
     if (newsStatus === 'old') {
       setNewsSaved(news);
     }
-  }, [news]);
+  }, [news, newsStatus]);
 
   useEffect(() => {
     // Save a modified news
@@ -112,7 +121,7 @@ const AddEditNews = ({ route }) => {
         newsStatus,
       });
     }
-  }, [action]);
+  }, [action, navigation, newsSaved, newsStatus]);
 
   return (
     <KeyboardAvoidingView
@@ -199,6 +208,24 @@ const AddEditNews = ({ route }) => {
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
+};
+
+AddEditNews.propTypes = {
+  route: PropTypes.shape({
+    key: PropTypes.string,
+    name: PropTypes.string,
+    params: PropTypes.shape({
+      action: PropTypes.string,
+      newsItem: PropTypes.shape({
+        author: PropTypes.string,
+        date: PropTypes.number,
+        id: PropTypes.string,
+        news: PropTypes.string,
+        title: PropTypes.string,
+      }),
+      newsAction: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default AddEditNews;

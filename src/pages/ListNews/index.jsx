@@ -1,11 +1,16 @@
+/**
+ * Component to list all news registered
+ */
+
 // React Imports
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextInput, FlatList, Alert } from 'react-native';
 
 // Modules Imports
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import 'moment/locale/pt-br';
+import PropTypes from 'prop-types';
 
 // Assets imports
 import ReadNewsIcon from '../../components/CustomIcon';
@@ -116,7 +121,7 @@ const ListNews = ({ route }) => {
       setNewsAction('done');
       setNewsSearch([]);
     }
-  }, [newsAction]);
+  }, [newsAction, newsItem, news, newsStatus]);
 
   return (
     <Container>
@@ -152,25 +157,23 @@ const ListNews = ({ route }) => {
         <FlatList
           style={{ height: '80%' }}
           data={newsSearch.length > 0 ? newsSearch : news}
-          keyExtractor={newsItem => newsItem.id}
-          renderItem={({ item: newsItem }) => {
+          keyExtractor={newsKey => newsKey.id}
+          renderItem={({ item }) => {
             return (
               <NewsContainer
-                onPress={() => navigation.navigate('ReadNews', { newsItem })}
+                onPress={() => navigation.navigate('ReadNews', { item })}
               >
                 <LineRow style={{ justifyContent: 'space-between' }}>
                   <NewsAuthorText numberOfLines={1}>
-                    {newsItem.author}
+                    {item.author}
                   </NewsAuthorText>
                   <NewsDateText>
-                    {moment(newsItem.date).format('DD/MM/YYYY')}
+                    {moment(item.date).format('DD/MM/YYYY')}
                   </NewsDateText>
                 </LineRow>
-                <NewsTitleText numberOfLines={2}>
-                  {newsItem.title}
-                </NewsTitleText>
+                <NewsTitleText numberOfLines={2}>{item.title}</NewsTitleText>
                 <NewsContentText numberOfLines={2}>
-                  {newsItem.newsContent}
+                  {item.newsContent}
                 </NewsContentText>
               </NewsContainer>
             );
@@ -187,6 +190,24 @@ const ListNews = ({ route }) => {
       </NewsButtonNew>
     </Container>
   );
+};
+
+ListNews.propTypes = {
+  route: PropTypes.shape({
+    key: PropTypes.string,
+    name: PropTypes.string,
+    params: PropTypes.shape({
+      action: PropTypes.string,
+      newsItem: PropTypes.shape({
+        author: PropTypes.string,
+        date: PropTypes.number,
+        id: PropTypes.string,
+        news: PropTypes.string,
+        title: PropTypes.string,
+      }),
+      newsStatus: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default ListNews;

@@ -6,6 +6,7 @@ import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import 'moment/locale/pt-br';
+import PropTypes from 'prop-types';
 
 // Styles Imports
 import {
@@ -26,7 +27,7 @@ import {
 } from './styles';
 
 const ReadNews = ({ route }) => {
-  const { newsItem } = route.params;
+  const { item: newsItem } = route.params;
 
   const navigation = useNavigation();
 
@@ -86,6 +87,22 @@ const ReadNews = ({ route }) => {
       </NewsManagementContainer>
     </>
   );
+};
+
+ReadNews.propTypes = {
+  route: PropTypes.shape({
+    key: PropTypes.string,
+    name: PropTypes.string,
+    params: PropTypes.shape({
+      item: PropTypes.shape({
+        author: PropTypes.string,
+        date: PropTypes.number,
+        id: PropTypes.string,
+        newsContent: PropTypes.string,
+        title: PropTypes.string,
+      }),
+    }),
+  }).isRequired,
 };
 
 export default ReadNews;
